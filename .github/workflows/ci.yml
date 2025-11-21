@@ -17,7 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      # Put cargo and rustup inside workspace so they can be cached
+      # Put cargo and rustup inside the workspace so they can be cached
       CARGO_HOME: ${{ github.workspace }}/.cargo
       RUSTUP_HOME: ${{ github.workspace }}/.rustup
 
@@ -43,7 +43,8 @@ jobs:
         toolchain: stable
         override: true
 
-    - name: Install cargo-binstall (for fast prebuilt binaries)
+    - name: Install cargo-binstall (Linux / macOS)
+      if: runner.os != 'Windows'
       run: |
         if ! command -v cargo-binstall >/dev/null 2>&1; then
           cargo install --locked cargo-binstall || true
@@ -51,18 +52,51 @@ jobs:
           echo "cargo-binstall already installed"
         fi
 
-    - name: Install dioxus-cli (fast, via binstall)
+    - name: Install cargo-binstall (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        if (Get-Command cargo-binstall -ErrorAction SilentlyContinue) {
+          Write-Host 'cargo-binstall already installed'
+        } else {
+          try {
+            cargo install --locked cargo-binstall
+          } catch {
+            Write-Host 'cargo-binstall install failed (continuing)'
+          }
+        }
+
+    - name: Install dioxus-cli (Linux / macOS)
+      if: runner.os != 'Windows'
       run: |
         if command -v dx >/dev/null 2>&1; then
           echo "dioxus-cli (dx) already installed"
         else
-          # try binstall first (fast, uses prebuilt), fallback to cargo install
           if command -v cargo-binstall >/dev/null 2>&1; then
             cargo binstall dioxus-cli || cargo install --locked dioxus-cli || true
           else
             cargo install --locked dioxus-cli || true
           fi
         fi
+
+    - name: Install dioxus-cli (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        if (Get-Command dx -ErrorAction SilentlyContinue) {
+          Write-Host 'dioxus-cli (dx) already installed'
+        } else {
+          if (Get-Command cargo-binstall -ErrorAction SilentlyContinue) {
+            try {
+              cargo binstall dioxus-cli
+            } catch {
+              Write-Host 'cargo binstall failed, falling back to cargo install'
+              try { cargo install --locked dioxus-cli } catch { Write-Host 'cargo install failed (continuing)' }
+            }
+          } else {
+            try { cargo install --locked dioxus-cli } catch { Write-Host 'cargo install failed (continuing)' }
+          }
+        }
 
     - name: Build with official Dioxus CLI
       run: dx build --release
