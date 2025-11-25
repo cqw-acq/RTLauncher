@@ -1,10 +1,120 @@
-body {
-    background-color: #0f1116;
-    color: #ffffff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 20px;
+/* RTLauncher - Main CSS with theme support from rtl-ui */
+
+:root {
+    --radius: 0.625rem;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
 }
 
+.dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+}
+
+* {
+    border-color: var(--border);
+}
+
+body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hide scrollbars while keeping scroll behavior */
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Card styles */
+.bg-card {
+    background-color: var(--card);
+}
+.text-card-foreground {
+    color: var(--card-foreground);
+}
+
+/* Text colors */
+.text-muted-foreground {
+    color: var(--muted-foreground);
+}
+.text-primary {
+    color: var(--primary);
+}
+.text-primary-foreground {
+    color: var(--primary-foreground);
+}
+.text-secondary-foreground {
+    color: var(--secondary-foreground);
+}
+.text-accent-foreground {
+    color: var(--accent-foreground);
+}
+
+/* Background colors */
+.bg-background {
+    background-color: var(--background);
+}
+.bg-primary {
+    background-color: var(--primary);
+}
+.bg-secondary {
+    background-color: var(--secondary);
+}
+.bg-accent {
+    background-color: var(--accent);
+}
+.bg-muted {
+    background-color: var(--muted);
+}
+.bg-destructive {
+    background-color: var(--destructive);
+}
+
+/* Ring colors for focus states */
+.focus-visible\:ring-ring:focus-visible {
+    --tw-ring-color: var(--ring);
+}
+
+/* Legacy hero styles (kept for backward compatibility) */
 #hero {
     margin: 0;
     display: flex;
@@ -17,23 +127,21 @@ body {
     width: 400px;
     text-align: left;
     font-size: x-large;
-    color: white;
     display: flex;
     flex-direction: column;
 }
 
 #links a {
-    color: white;
     text-decoration: none;
     margin-top: 20px;
     margin: 10px 0px;
-    border: white 1px solid;
+    border: var(--border) 1px solid;
     border-radius: 5px;
     padding: 10px;
 }
 
 #links a:hover {
-    background-color: #1f1f1f;
+    background-color: var(--accent);
     cursor: pointer;
 }
 
