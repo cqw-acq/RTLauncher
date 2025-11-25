@@ -3833,7 +3833,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rt-launcher"
+name = "rtlauncher"
 version = "0.1.0"
 dependencies = [
  "dioxus",
