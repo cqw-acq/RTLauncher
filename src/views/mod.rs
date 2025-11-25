@@ -24,3 +24,9 @@ pub use settings::Settings;
 
 mod navbar;
 pub use navbar::Navbar;
+
+mod instance_settings;
+pub use instance_settings::{
+    InstanceSettingsLayout, InstanceBasic, InstanceMods, InstanceWorlds, 
+    InstanceResources, InstanceShaders, InstanceScreenshots, InstanceExport, InstanceModify
+};

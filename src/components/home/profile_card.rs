@@ -1,4 +1,5 @@
 use dioxus::prelude::*;
+use crate::Route;
 use crate::components::ui::{Card, CardContent, Button, ButtonVariant, ButtonSize};
 
 /// Account/Profile data structure
@@ -102,6 +103,11 @@ pub fn ProfileCard(
                                 launch_status.set("版本管理功能即将推出".to_string());
                             },
                             "版本管理"
+                        }
+                        Link {
+                            to: Route::InstanceBasic {},
+                            class: "flex-1 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all outline-none h-9 px-4 py-2 bg-secondary text-secondary-foreground shadow hover:bg-secondary/80",
+                            "实例设置"
                         }
                     }
                 }

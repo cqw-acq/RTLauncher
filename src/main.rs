@@ -2,7 +2,11 @@
 // need dioxus
 use dioxus::prelude::*;
 
-use views::{Blog, Home, Navbar, Download, Lan, More, Settings};
+use views::{
+    Blog, Home, Navbar, Download, Lan, More, Settings,
+    InstanceSettingsLayout, InstanceBasic, InstanceMods, InstanceWorlds,
+    InstanceResources, InstanceShaders, InstanceScreenshots, InstanceExport, InstanceModify
+};
 
 /// Define a components module that contains all shared components for our app.
 mod components;
@@ -46,6 +50,25 @@ enum Route {
         // Fields of the route variant will be passed to the component as props. In this case, the blog component must accept
         // an `id` prop of type `i32`.
         Blog { id: i32 },
+    
+    // Instance settings layout and routes
+    #[layout(InstanceSettingsLayout)]
+        #[route("/instance-settings/basic")]
+        InstanceBasic {},
+        #[route("/instance-settings/mods")]
+        InstanceMods {},
+        #[route("/instance-settings/worlds")]
+        InstanceWorlds {},
+        #[route("/instance-settings/resources")]
+        InstanceResources {},
+        #[route("/instance-settings/shaders")]
+        InstanceShaders {},
+        #[route("/instance-settings/screenshots")]
+        InstanceScreenshots {},
+        #[route("/instance-settings/export")]
+        InstanceExport {},
+        #[route("/instance-settings/modify")]
+        InstanceModify {},
 }
 
 // We can import assets in dioxus with the `asset!` macro. This macro takes a path to an asset relative to the crate root.
