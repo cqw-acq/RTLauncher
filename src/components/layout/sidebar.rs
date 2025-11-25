@@ -31,8 +31,9 @@ pub fn Sidebar() -> Element {
                         polyline { points: "9 22 9 12 15 12 15 22" }
                     }
                 }
-                // Download button
-                button {
+                // Download button - now a Link
+                Link {
+                    to: Route::Download {},
                     class: "p-2 rounded-lg hover:bg-accent transition-colors",
                     title: "下载",
                     svg {
@@ -50,8 +51,9 @@ pub fn Sidebar() -> Element {
                         line { x1: "12", x2: "12", y1: "15", y2: "3" }
                     }
                 }
-                // Network button
-                button {
+                // Network button - now a Link
+                Link {
+                    to: Route::Lan {},
                     class: "p-2 rounded-lg hover:bg-accent transition-colors",
                     title: "网络",
                     svg {
@@ -70,8 +72,9 @@ pub fn Sidebar() -> Element {
                         path { d: "M8.5 16.429a5 5 0 0 1 7 0" }
                     }
                 }
-                // More button
-                button {
+                // More button - now a Link
+                Link {
+                    to: Route::More {},
                     class: "p-2 rounded-lg hover:bg-accent transition-colors",
                     title: "更多",
                     svg {
@@ -135,8 +138,9 @@ pub fn Sidebar() -> Element {
                         }
                     }
                 }
-                // Settings button
-                button {
+                // Settings button - now a Link
+                Link {
+                    to: Route::Settings {},
                     class: "p-2 rounded-lg hover:bg-accent transition-colors",
                     title: "设置",
                     svg {

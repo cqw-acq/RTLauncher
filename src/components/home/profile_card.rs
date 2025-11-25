@@ -15,6 +15,8 @@ pub fn ProfileCard(
     selected_profile: Option<Account>,
     on_open_profile_selector: EventHandler<()>,
 ) -> Element {
+    let mut launch_status = use_signal(|| "".to_string());
+    
     let profile = selected_profile.unwrap_or(Account {
         name: "RTL User".to_string(),
         status: "Ready to play".to_string(),
@@ -79,13 +81,26 @@ pub fn ProfileCard(
                         variant: ButtonVariant::Default,
                         size: ButtonSize::Lg,
                         class: "w-full mb-2",
+                        onclick: move |_| {
+                            launch_status.set("启动中...".to_string());
+                        },
                         "启动游戏"
+                    }
+                    // Show status message if launching
+                    if !launch_status().is_empty() {
+                        div {
+                            class: "text-center text-sm text-blue-500 mb-2",
+                            "{launch_status}"
+                        }
                     }
                     div {
                         class: "flex space-x-2 mt-2",
                         Button {
                             variant: ButtonVariant::Secondary,
                             class: "flex-1",
+                            onclick: move |_| {
+                                launch_status.set("版本管理功能即将推出".to_string());
+                            },
                             "版本管理"
                         }
                     }

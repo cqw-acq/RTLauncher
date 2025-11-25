@@ -2,7 +2,7 @@
 // need dioxus
 use dioxus::prelude::*;
 
-use views::{Blog, Home, Navbar};
+use views::{Blog, Home, Navbar, Download, Lan, More, Settings};
 
 /// Define a components module that contains all shared components for our app.
 mod components;
@@ -28,6 +28,18 @@ enum Route {
         // the component for that route will be rendered. The component name that is rendered defaults to the variant name.
         #[route("/")]
         Home {},
+        // Download page
+        #[route("/download")]
+        Download {},
+        // Lan/Network page
+        #[route("/lan")]
+        Lan {},
+        // More page
+        #[route("/more")]
+        More {},
+        // Settings page
+        #[route("/settings")]
+        Settings {},
         // The route attribute can include dynamic parameters that implement [`std::str::FromStr`] and [`std::fmt::Display`] with the `:` syntax.
         // In this case, id will match any integer like `/blog/123` or `/blog/-456`.
         #[route("/blog/:id")]
