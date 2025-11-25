@@ -10,7 +10,7 @@ use actix_cors::Cors;
 use actix_files as fs;
 use actix_web::{
     get, post,
-    web::{self, Data, Json, Path, Payload},
+    web::{Data, Json, Path, Payload},
     App, HttpRequest, HttpResponse, HttpServer, Responder,
 };
 use actix_web_actors::ws;
@@ -173,7 +173,8 @@ fn spawn_worker(queue: Data<Queue>, sessions: Data<Sessions>) {
             let exec_result = match job.module.as_str() {
                 "classify_versions" => classify_versions_task().await,
                 "original_download" => {
-                    let current_path = std::env::current_dir().expect("Failed to get current directory");
+                    let current_path = std::env::current_dir()
+                        .expect("Failed to get current directory. Ensure the process has permission to access the filesystem and the current directory exists.");
                     let mc_home = current_path.join(".minecraft");
                     // Use default version if not provided by frontend
                     let ver = job.version.as_deref().unwrap_or("1.20.4");

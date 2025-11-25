@@ -222,7 +222,12 @@ async fn download_task(
         tokio::time::sleep(Duration::from_secs(2)).await;
     }
 
-    Err(format!("File {} download failed, all sources tried", task.target_path.display()).into())
+    Err(format!(
+        "File {} download failed after {} retries. Attempted sources: {}",
+        task.target_path.display(),
+        retry_count,
+        used_urls.join(", ")
+    ).into())
 }
 
 
@@ -390,10 +395,7 @@ pub async fn process_version(
         }
     }
 
-    // Process asset files
-    let assets_content = reqwest::get(&version_data.asset_index.url).await?.text().await?;
-    let assets_data: AssetsJson = serde_json::from_str(&assets_content)?;
-
+    // Process asset files - reuse the already fetched and parsed assets_data
     for (_, obj) in assets_data.objects {
         let prefix = &obj.hash[0..2];
         let original_url = format!("https://resources.download.minecraft.net/{}/{}", prefix, obj.hash);
