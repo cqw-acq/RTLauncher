@@ -23,3 +23,6 @@ script = []
 [bundle]
 identifier = "com.RTLauncher"
 publisher = "RTLauncher Development Team"
+
+[tooling.tailwindcss]
+file = "./input.css"
