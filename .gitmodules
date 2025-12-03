@@ -1,0 +1,3 @@
+[submodule "rtl-ui"]
+	path = rtl-ui
+	url = https://github.com/Moralts/rtl-ui
