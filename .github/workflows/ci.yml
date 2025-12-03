@@ -1,4 +1,4 @@
-name: Rust
+name: Tauri Build
 
 on:
   push:
@@ -7,16 +7,42 @@ on:
     branches: [ "main" ]
 
 env:
-  CARGO_TERM_COLOR: always
+  # 可按需添加其它环境变量
+  CI: true
 
 jobs:
   build:
-
     runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build
-      run: cargo build --verbose
-    - name: Run tests
-      run: cargo test --verbose
+
+    - name: Node.js setup
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install pnpm
+      run: npm install -g pnpm
+
+    - name: Cache pnpm store
+      uses: actions/cache@v3
+      with:
+        path: ~/.pnpm-store
+        key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          pnpm-store-${{ runner.os }}-
+
+    - name: Install dependencies (only first time or when lockfile changed)
+      run: pnpm install
+
+    - name: Build with Tauri
+      run: pnpm tauri build
+
+    - name: Upload build output
+      uses: actions/upload-artifact@v4
+      with:
+        name: tauri-build-output
+        path: |
+          src-tauri/target/release/
+          dist/
